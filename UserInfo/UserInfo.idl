@@ -1,0 +1,60 @@
+// UserInfo.idl : IDL source for UserInfo
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (UserInfo.tlb) and marshalling code.
+
+import "unknwn.idl";
+
+//  IID_IUserInfo
+//  These are the attributes of the IUserInfo interface
+[
+	object,
+	uuid("22648112-e14f-463c-8ff5-f7e50dfdf5d0"),
+	helpstring("IUserInfo Interface.")
+]
+interface IUserInfo : IUnknown
+{
+	//List of function definitions for each method supported
+	//by the interface
+	//
+	//[attributes] returntype [calling convention]
+	//funcname(params);
+	//
+	[propget, helpstring("Sets or returns the age of the user.")]
+	HRESULT Age([out, retval] short* nRetAge);
+	[propput, helpstring("Sets or returns the age of the user.")]
+	HRESULT Age([in] short nAge);
+	[propget, helpstring("Sets or returns the name of the user.")]
+	HRESULT Name([out, retval] LPSTR* lpszRetName);
+	[propput, helpstring("Sets or returns the name of the user.")]
+	HRESULT Name([in] LPSTR lpszName);
+	[propget, helpstring("Sets or returns the sex of the user.")]
+	HRESULT Sex([out, retval] unsigned char* byRetSex);
+	[propput, helpstring("Sets or returns the sex of the user.")]
+	HRESULT Sex([in] unsigned char bySex);
+}
+
+//LIBID_UserInfo
+//These are the attributes of the type library
+[
+	uuid("6db492b9-cd03-4511-a6bb-3ece8b3377f2"),
+	helpstring("UserInfo Type Library"),
+	version(1.0)
+]
+//Definition of the UserInfo type library
+library UserInfo
+{
+	//CLSID_UserInfo
+	//Attributes of the UserInfo object
+	[
+		uuid("cf79f686-dc42-4986-97c5-5f0d0bdcdfa8"),  //  Search for this in the registry
+		helpstring("UserInfo Object")
+	]
+	//Definition of the UserInfo object
+	coclass UserInfo
+	{
+		//List all of the interfaces supported by the object
+		[default] interface IUserInfo;
+	}
+}

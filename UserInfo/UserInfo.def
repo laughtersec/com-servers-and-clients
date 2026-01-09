@@ -1,0 +1,11 @@
+; UserInfo.def : Declares the module parameters.
+; https://learn.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-warning-lnk4222?view=msvc-170&f1url=%3FappId%3DDev17IDEF1%26l%3DEN-US%26k%3Dk(LNK4222)%26rd%3Dtrue
+; ^^ LOL, and if I don't assign the ordinals, there are no exported functions. 
+; Also make sure to place the DLL in Windows\SysWOW64 for 64-bit systems
+LIBRARY		UserInfo
+DESCRIPTION	"UserInfo In-Process Server."
+EXPORTS
+	DllRegisterServer	@1	PRIVATE
+	DllUnregisterServer	@2	PRIVATE
+	DllGetClassObject	@3	PRIVATE
+	DllCanUnloadNow		@4	PRIVATE
