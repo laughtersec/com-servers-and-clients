@@ -1,0 +1,149 @@
+//
+//UserInfoHandler.idl
+//
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+//IID_IUserInfo
+//These are the attributes of the IUserInfo interface
+[
+	object,
+	uuid("22648112-e14f-463c-8ff5-f7e50dfdf5d0"),
+	helpstring("IUserInfo interface.")
+]
+//Declaration of the IUserInfo interface
+interface IUserInfo : IUnknown
+{
+	//List of function definitions for each method supported by the interface
+	//
+	//[attributes] returntype [calling convention]
+	//funcname(params);
+	//
+	[propget, helpstring("Sets or returns the age of the user.")]
+	HRESULT Age([out, retval] short* nRetAge);
+	[propput, helpstring("Sets or returns the age of the user.")]
+	HRESULT Age([in] short nAge);
+	[propget, helpstring("Sets or returns the name of the user.")]
+	HRESULT Name([out, retval] LPSTR* lpszRetName);
+	[propput, helpstring("Sets or returns the name of the user.")]
+	HRESULT Name([in] LPSTR lpszName);
+	[propget, helpstring("Sets or returns the sex of the user.")]  //  make sure the attributes actually match the previously in-process server's attributes.
+	HRESULT Sex([out, retval] unsigned char* byRetSex);
+	[propput, helpstring("Sets or returns the sex of the user.")]
+	HRESULT Sex([in] unsigned char bySex);
+}
+
+//ICopyInfo
+//These are the attributes of the ICopyInfo interface
+[
+	object,
+	uuid("b04faa82-8bef-11d0-94ab-00a024a85a21"),
+	helpstring("ICopyInfo interface.")
+]
+//Definition of the ICopyInfo interface
+interface ICopyInfo : IUnknown
+{
+	//List of function definitions for each method supported by the interface
+	//
+	//[attributes] returntype [calling convention] funcname(params);
+	//
+	[helpstring("Copies the Age property from one UserInfo object to another.")]
+	HRESULT CopyAge([in] IUserInfo* lpDest, [in] IUserInfo* lpSrc);
+	[helpstring("Copies the Name property from one UserInfo object to another.")]
+	HRESULT CopyName([in] IUserInfo* lpDest, [in] IUserInfo* lpSrc);
+	[helpstring("Copies the Sex property from one UserInfo object to another.")]
+	HRESULT CopySex([in] IUserInfo* lpDest, [in] IUserInfo* lpSrc);
+	[helpstring("Copies all of the properties from one UserInfo object to another.")]
+	HRESULT CopyAll([in] IUserInfo* lpDest, [in] IUserInfo* lpSrc);
+}
+
+//IReverseInfo
+//These are the attributes of the IReverseInfo interface
+[
+	object,
+	uuid("b04faa83-8bef-11d0-94ab-00a024a85a21"),
+	helpstring("IReverseInfo interface.")
+]
+//Definition of the IReverseInfo interface
+interface IReverseInfo : IUnknown
+{
+	//List of function definitions for each method supported by the interface
+	//
+	//[attributes] returntype [calling convention]
+	//  funcname(params);
+	//
+	[helpstring("Reverses the Age property of a UserInfo object.")]
+	HRESULT ReverseAge([in] IUserInfo* lpIUserInfo);
+	[helpstring("Reverses the Name property of a UserInfo object.")]
+	HRESULT ReverseName([in] IUserInfo* lpIUserInfo);
+	[helpstring("Reverses the Sex property of a UserInfo object.")]
+	HRESULT ReverseSex([in] IUserInfo* lpIUserInfo);
+	[helpstring("Reverses all of the properties of a UserInfo object.")]
+	HRESULT ReverseAll([in] IUserInfo* lpIUserInfo);
+}
+
+//ISwapInfo
+//These are the attributes of the ISwapInfo interface
+[
+	object,
+	uuid("b04faa84-8bef-11d0-94ab-00a024a85a21"),
+	helpstring("ISwapInfo Interface.")
+]
+//Definition of the ISwapInfo interface
+interface ISwapInfo : IUnknown
+{
+	//List of function definitions for each method supported by the interface
+	//
+	//[attributes] returntype [calling convention]
+	//  funcname(params);
+	//
+	[helpstring("Swaps the Age property of two UserInfo objects.")]
+	HRESULT SwapAge([in] IUserInfo* lpIUserInfo1, [in] IUserInfo* lpIUserInfo2);
+	[helpstring("Swaps the Name property of two UserInfo objects.")]
+	HRESULT SwapName([in] IUserInfo* lpIUserInfo1, [in] IUserInfo* lpIUserInfo2);
+	[helpstring("Swaps the Sex property of two UserInfo objects")]
+	HRESULT SwapSex([in] IUserInfo* lpIUserInfo1, [in] IUserInfo* lpIUserInfo2);
+	[helpstring("Swaps all the properties of two UserInfo objects.")]
+	HRESULT SwapAll([in] IUserInfo* lpIUserInfo1, [in] IUserInfo* lpIUserInfo2);
+}
+
+//LIBID_UserInfoHandler
+//These are the attributes of the type library
+[
+	uuid("b04faa80-8bef-11d0-94ab-00a024a85a21"),
+	helpstring("UserInfoHandler Type Library."),
+	version(1.0)
+]
+//Definition of the UserInfoHandler type library
+library UserInfoHandler
+{
+	importlib("stdole32.tlb");
+
+	//CLSID_UserInfo
+	//Attributes of the UserInfo object
+	[
+		uuid("cf79f686-dc42-4986-97c5-5f0d0bdcdfa8"),
+		helpstring("UserInfo Object.")
+	]
+	//Definition of the UserInfo object
+	coclass UserInfo
+	{
+		//List all of the interfaces supported by the object
+		[default] interface IUserInfo;
+	}
+	//CLSID_UserInfoHandler
+	//Attributes of the UserInfoHandler object
+	[
+		uuid("b04faa81-8bef-11d0-94ab-00a024a85a21"),  //  check this in the registry under CLSID
+		helpstring("UserInfoHandler Object.")
+	]
+	//Definition of the UserInfoHandler object
+	coclass UserInfoHandler
+	{
+		//List all of the interfaces supported by the object
+		[default] interface ICopyInfo;
+		interface IReverseInfo;
+		interface ISwapInfo;
+	}
+}
