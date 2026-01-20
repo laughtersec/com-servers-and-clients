@@ -292,15 +292,6 @@ STDMETHODIMP_(ULONG)CUserInfoHandler::Release(void)
 	return m_cRef;
 }//Release
 
-CUserInfoHandler::CUserInfoHandler()
-{
-
-}
-CUserInfoHandler::~CUserInfoHandler()
-{
-
-}
-
 STDMETHODIMP CUserInfoHandlerFactory::LockServer(BOOL bLock)
 {
 	if (bLock)
@@ -366,4 +357,5 @@ STDMETHODIMP CUserInfoHandlerFactory::CreateInstance(IUnknown* pUnknownOuter, RE
 	g_cObjects++;
 
 	return NOERROR;
+
 }//CreateInstance
